@@ -39,8 +39,10 @@ components:
           type: string
         model_vehicle:
           type: string
+        id_driver:
+          type: string  
         vehicle_type:
-          type: string
+          $ref: '#/components/schemas/VehicleType'
     VehicleResponse:
       type: object
       properties:
@@ -48,6 +50,12 @@ components:
           type: string
         status_rent:
           type: boolean
+    VehicleType:
+      type: string
+      enum:
+        - terrestre
+        - aquatico
+        - aero         
   responses:
     GeneralError:
       description: General Error
