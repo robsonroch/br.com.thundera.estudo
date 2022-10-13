@@ -1,0 +1,81 @@
+openapi: 3.0.0
+info:
+  title: API Sample
+  description: Description API Sample
+  termsOfService: https://sample.com/terms/
+  contact:
+    name: API Support
+    url: https://www.sample.com/support
+    email: support@sample.com
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+  version: "1.0"
+servers:
+  - url: https://apps-dev.thundercats.com.br/sample
+    description: Development server
+  - url: https://apps-hml.thundercats.com.br/sample
+    description: Staging server
+  - url: https://apps-prd.thundercats.com.br/sample
+    description: Production server
+components:
+  schemas:
+    GeneralError:
+      type: object
+      properties:
+        code:
+          type: integer
+          format: int32
+        message:
+          type: string
+    VehicleRequest:
+      type: object
+      required:
+        - origem
+        - cpf
+        - transacoes
+      properties:
+        id_vehicle:
+          type: string
+        model_vehicle:
+          type: string
+        vehicle_type:
+          type: string
+    VehicleResponse:
+      type: object
+      properties:
+        id_vehicle:
+          type: string
+        status_rent:
+          type: boolean
+  responses:
+    GeneralError:
+      description: General Error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/GeneralError'
+paths:
+  /vehicle:
+    post:
+      summary: vehicle api
+      description: Descrição do que a api faz
+      operationId: post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/VehicleRequest'
+      responses:
+        '200':
+          description: Description 200
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VehicleResponse'
+        default:
+          description: Description default
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GeneralError'
